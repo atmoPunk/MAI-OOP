@@ -5,21 +5,21 @@
 #include <iostream>
 #include <memory>
 
-class TQueueItem {
+template <class T> class TQueueItem {
 public:
-    TQueueItem(const std::shared_ptr<IFigure>& figure);
-    TQueueItem(const TQueueItem& item);
+    TQueueItem(const std::shared_ptr<T>& figure);
+    //TQueueItem(const TQueueItem& item);
     virtual ~TQueueItem();
     
-    friend std::ostream& operator<<(std::ostream& os, const TQueueItem& obj);
+    template <class A> friend std::ostream& operator<<(std::ostream& os, const TQueueItem<A>& obj);
 
-    std::shared_ptr<TQueueItem> SetNext(std::shared_ptr<TQueueItem> next);
-    std::shared_ptr<TQueueItem> GetNext();
-    std::shared_ptr<IFigure> GetFigure() const;
+    std::shared_ptr< TQueueItem<T> > SetNext(std::shared_ptr< TQueueItem<T> > next);
+    std::shared_ptr< TQueueItem<T> > GetNext();
+    std::shared_ptr<T> GetFigure() const;
     
 private:
-    std::shared_ptr<IFigure> figure;
-    std::shared_ptr<TQueueItem> next;    
+    std::shared_ptr<T> figure;
+    std::shared_ptr< TQueueItem<T> > next;    
 };
 
 #endif //TQUEUEITEM_H

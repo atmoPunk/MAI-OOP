@@ -8,22 +8,22 @@
 #include "TQueueItem.h"
 #include <memory>
 
-class TQueue {
+template <class T> class TQueue {
 public:
     TQueue();
-    TQueue(const TQueue& original);
+    //template <class A> TQueue(const TQueue<A>& original);
     virtual ~TQueue();
 
-    friend std::ostream& operator<<(std::ostream& os, TQueue& queue);
+    template <class A> friend std::ostream& operator<<(std::ostream& os, TQueue<A>& queue);
 
-    void Push(std::shared_ptr<IFigure> figure);
+    void Push(std::shared_ptr<T> figure);
     bool Empty();
     void Pop();
-    std::shared_ptr<IFigure> Front();
+    std::shared_ptr<T> Front();
 
 private:
-    std::shared_ptr<TQueueItem> first;
-    std::shared_ptr<TQueueItem> last;
+    std::shared_ptr < TQueueItem <T> > first;
+    std::shared_ptr < TQueueItem <T> > last;
     size_t size;
 };
 

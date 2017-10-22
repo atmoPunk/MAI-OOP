@@ -1,37 +1,37 @@
 #include "TQueueItem.h"
 
-TQueueItem::TQueueItem(const std::shared_ptr<IFigure>& figure) {
+template <class T> TQueueItem<T>::TQueueItem(const std::shared_ptr<T>& figure) {
     this->figure = figure;
     this->next = nullptr;
     std::cout << "\nQueue item: created\n";
 }
 
-TQueueItem::TQueueItem(const TQueueItem& original) {
-    this->figure = original.figure;
-    this->next = original.next;
-    std::cout << "\nQueue item: copied\n";
-}
+// TQueueItem::TQueueItem(const TQueueItem& original) {
+//     this->figure = original.figure;
+//     this->next = original.next;
+//     std::cout << "\nQueue item: copied\n";
+// }
 
-TQueueItem::~TQueueItem() {
+template <class T> TQueueItem<T>::~TQueueItem() {
     std::cout << "\nQueue item: destroyed\n";
 }
 
-std::ostream &operator<<(std::ostream &os, const TQueueItem &obj) {
-    std::shared_ptr<IFigure> fig = obj.figure;
+template <class A> std::ostream &operator<<(std::ostream &os, const TQueueItem<A> &obj) {
+    std::shared_ptr<A> fig = obj.figure;
     fig->Print();
     return os;
 }
 
-std::shared_ptr<TQueueItem> TQueueItem::SetNext(std::shared_ptr<TQueueItem> next) {
-    std::shared_ptr<TQueueItem> old = this->next;
+template <class T> std::shared_ptr< TQueueItem<T> > TQueueItem<T>::SetNext(std::shared_ptr< TQueueItem<T> > next) {
+    std::shared_ptr< TQueueItem<T> > old = this->next;
     this->next = next;
     return old;
 }
 
-std::shared_ptr<TQueueItem> TQueueItem::GetNext() {
+template <class T> std::shared_ptr< TQueueItem<T> > TQueueItem<T>::GetNext() {
     return this->next;
 }
 
-std::shared_ptr<IFigure> TQueueItem::GetFigure() const {
+template <class T> std::shared_ptr<T> TQueueItem<T>::GetFigure() const {
     return this->figure;
 }
