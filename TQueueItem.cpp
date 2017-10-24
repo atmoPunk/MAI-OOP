@@ -6,12 +6,6 @@ template <class T> TQueueItem<T>::TQueueItem(const std::shared_ptr<T>& figure) {
     std::cout << "\nQueue item: created\n";
 }
 
-// TQueueItem::TQueueItem(const TQueueItem& original) {
-//     this->figure = original.figure;
-//     this->next = original.next;
-//     std::cout << "\nQueue item: copied\n";
-// }
-
 template <class T> TQueueItem<T>::~TQueueItem() {
     std::cout << "\nQueue item: destroyed\n";
 }
@@ -35,3 +29,6 @@ template <class T> std::shared_ptr< TQueueItem<T> > TQueueItem<T>::GetNext() {
 template <class T> std::shared_ptr<T> TQueueItem<T>::GetFigure() const {
     return this->figure;
 }
+
+template class TQueueItem<IFigure>;
+template std::ostream &operator<<(std::ostream &os, const TQueueItem<IFigure> &obj);

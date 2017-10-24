@@ -26,4 +26,5 @@ class TRectangle : public IFigure {
         double side_b;
 };
 
+//#include "TRectangle.cpp"
 #endif //TRECTANGLE_H

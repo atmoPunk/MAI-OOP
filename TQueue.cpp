@@ -2,12 +2,6 @@
 
 template <class T> TQueue<T>::TQueue() : first(nullptr), last(nullptr), size(0) {};
 
-// TQueue::TQueue(const TQueue& original) {
-//     first = original.first;
-//     last = original.last;
-//     size = original.size;
-// }
-
 template <class T> void TQueue<T>::Push(std::shared_ptr<T> figure) {
     std::shared_ptr < TQueueItem <T> > item(new TQueueItem<T>(figure));
     if(last != nullptr) {
@@ -64,3 +58,6 @@ template <class T> std::shared_ptr<T> TQueue<T>::Front() {
     }
     return result;
 }
+
+template class TQueue<IFigure>;
+template std::ostream &operator<<(std::ostream &os, TQueue<IFigure> &queue);

@@ -11,7 +11,6 @@
 template <class T> class TQueue {
 public:
     TQueue();
-    //template <class A> TQueue(const TQueue<A>& original);
     virtual ~TQueue();
 
     template <class A> friend std::ostream& operator<<(std::ostream& os, TQueue<A>& queue);
@@ -27,5 +26,7 @@ private:
     size_t size;
 };
 
+
+//#include  "TQueue.cpp"
 
 #endif //TQUEUE_H
