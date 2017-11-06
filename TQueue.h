@@ -23,14 +23,11 @@ public:
 
     TIterator < TQueueItem<T>, T > begin();
     TIterator < TQueueItem<T>, T > end();
-    
+
 private:
     std::shared_ptr < TQueueItem <T> > first;
     std::shared_ptr < TQueueItem <T> > last;
     size_t size;
 };
-
-
-//#include  "TQueue.cpp"
 
 #endif //TQUEUE_H

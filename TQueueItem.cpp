@@ -3,11 +3,11 @@
 template <class T> TQueueItem<T>::TQueueItem(const std::shared_ptr<T>& figure) {
     this->figure = figure;
     this->next = nullptr;
-    std::cout << "\nQueue item: created\n";
+    std::cout << "Queue item: created\n";
 }
 
 template <class T> TQueueItem<T>::~TQueueItem() {
-    std::cout << "\nQueue item: destroyed\n";
+    std::cout << "Queue item: destroyed\n";
 }
 
 template <class A> std::ostream &operator<<(std::ostream &os, const TQueueItem<A> &obj) {
@@ -28,6 +28,16 @@ template <class T> std::shared_ptr< TQueueItem<T> > TQueueItem<T>::GetNext() {
 
 template <class T> std::shared_ptr<T> TQueueItem<T>::GetFigure() const {
     return this->figure;
+}
+
+template <class T> TAllocationBlock TQueueItem<T>::queueitem_allocator(sizeof(TQueueItem<T>), 100);
+
+template <class T> void* TQueueItem<T>::operator new(size_t size) {
+    return queueitem_allocator.allocate();
+}
+
+template <class T> void TQueueItem<T>::operator delete(void* ptr) {
+    return queueitem_allocator.deallocate(ptr);
 }
 
 template class TQueueItem<IFigure>;

@@ -2,6 +2,7 @@
 #define TQUEUEITEM_H
 
 #include "IFigure.h"
+#include "TAllocationBlock.h"
 #include <iostream>
 #include <memory>
 
@@ -15,12 +16,15 @@ public:
     std::shared_ptr< TQueueItem<T> > SetNext(std::shared_ptr< TQueueItem<T> > next);
     std::shared_ptr< TQueueItem<T> > GetNext();
     std::shared_ptr<T> GetFigure() const;
+
+    void* operator new(size_t size);
+    void operator delete(void* ptr);
     
 private:
     std::shared_ptr<T> figure;
-    std::shared_ptr< TQueueItem<T> > next;    
-};
+    std::shared_ptr< TQueueItem<T> > next;
 
-//#include "TQueueItem.cpp"
+    static TAllocationBlock queueitem_allocator;    
+};
 
 #endif //TQUEUEITEM_H
