@@ -59,5 +59,13 @@ template <class T> std::shared_ptr<T> TQueue<T>::Front() {
     return result;
 }
 
+template <class T> TIterator< TQueueItem<T>, T > TQueue<T>::begin() {
+    return TIterator< TQueueItem<T>, T >(first);
+}
+
+template <class T> TIterator< TQueueItem<T>, T > TQueue<T>::end() {
+    return TIterator< TQueueItem<T>, T >(nullptr);
+}
+
 template class TQueue<IFigure>;
 template std::ostream &operator<<(std::ostream &os, TQueue<IFigure> &queue);

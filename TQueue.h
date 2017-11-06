@@ -6,6 +6,7 @@
 #include "TRhombus.h"
 #include "TTrapezoid.h"
 #include "TQueueItem.h"
+#include "TIterator.h"
 #include <memory>
 
 template <class T> class TQueue {
@@ -20,6 +21,9 @@ public:
     void Pop();
     std::shared_ptr<T> Front();
 
+    TIterator < TQueueItem<T>, T > begin();
+    TIterator < TQueueItem<T>, T > end();
+    
 private:
     std::shared_ptr < TQueueItem <T> > first;
     std::shared_ptr < TQueueItem <T> > last;
