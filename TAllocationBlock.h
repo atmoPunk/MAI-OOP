@@ -2,6 +2,8 @@
 #define TALLOCATIONBLOCK_H
 
 #include <cstdlib>
+#include "TBinTree.h"
+
 class TAllocationBlock {
 public:
 	TAllocationBlock(size_t size, size_t count);
@@ -15,7 +17,7 @@ private:
 	size_t _count;
 
 	char* _used_blocks;
-	void** _free_blocks;
+	TBinTree* _free_blocks;
 
 	size_t _free_count;
 };
