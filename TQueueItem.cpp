@@ -30,7 +30,7 @@ template <class T> std::shared_ptr<T> TQueueItem<T>::GetFigure() const {
     return this->figure;
 }
 
-template <class T> TAllocationBlock TQueueItem<T>::queueitem_allocator(sizeof(TQueueItem<T>), 3);
+template <class T> TAllocationBlock TQueueItem<T>::queueitem_allocator(sizeof(TQueueItem<T>), 100);
 
 template <class T> void* TQueueItem<T>::operator new(size_t size) {
     return queueitem_allocator.allocate();
