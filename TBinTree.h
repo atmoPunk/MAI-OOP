@@ -11,7 +11,7 @@ public:
 	}
 
 	~TBinTree() {
-		delete root;
+		root->destroyNode();
 	}
 
 	void insert(char* blk, TNode** node, TNode* par) {

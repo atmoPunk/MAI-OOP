@@ -16,9 +16,15 @@ struct TNode {
 		parent = par;
 	}
 
+	void destroyNode() {
+		if(this != nullptr) {
+			left->destroyNode();
+			right->destroyNode();
+			delete this;
+		}
+	}
+
 	~TNode() {
-		delete left;
-		delete right;
 	}
 };
 

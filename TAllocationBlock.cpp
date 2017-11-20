@@ -4,7 +4,10 @@
 TAllocationBlock::TAllocationBlock(size_t size, size_t count) : _size(size), _count(count) {
 	_used_blocks = (char*) malloc(_size * _count);
 	_free_blocks = new TBinTree();
-	for(size_t i = 0; i < _count; i++) {
+	for(size_t i = _count / 2; i < _count; i++) {
+		_free_blocks->insert(_used_blocks + i * _size, &(_free_blocks->root), nullptr);
+	}
+	for(size_t i = 0; i < _count / 2; i++) {
 		_free_blocks->insert(_used_blocks + i * _size, &(_free_blocks->root), nullptr);
 	}
 	_free_count = _count;
