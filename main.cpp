@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <memory>
+#include <ratio>
+#include <chrono>
+#include <vector>
 
 #include "TQueue.h"
 #include "TQueueItem.h"
@@ -22,8 +25,8 @@ void TestQueue() {
     queue.Push(ptr2);
     queue.Push(ptr3);
     
-    for(auto i : queue) {
-        (*i).Print();
+    for(TIterator<TQueueItem <IFigure> , IFigure> i = queue.begin(); i != queue.end(); ++i) {
+        (*i)->Print();
     }
 }
 
@@ -66,8 +69,35 @@ void TestAllocationBlock() {
     allocator.deallocate(a5);
 }
 
+void BenchmarAllcators() {
+	std::cout << std::endl << "Benchmark" << std::endl;
+	using namespace std::chrono;
+	int** arr = (int**) malloc(sizeof(int*) * 1000);
+	high_resolution_clock::time_point ownAllocBegin = high_resolution_clock::now();
+	TAllocationBlock allocator(sizeof(int), 10000);
+	for(int i = 0; i < 1000; i++) {
+		arr[i] = (int*) allocator.allocate();
+	}
+	for(int i = 0; i < 1000; i++) {
+		allocator.deallocate(arr[i]);
+	}
+	high_resolution_clock::time_point ownAllocEnd = high_resolution_clock::now();
+	std::cout << duration_cast<microseconds>(ownAllocEnd - ownAllocBegin).count() << std::endl;
+	high_resolution_clock::time_point AllocBegin = high_resolution_clock::now();
+	std::vector <int*> vect(1000);
+	for(int i = 0; i < 1000; i++) {
+		vect[i] = (int*) malloc(sizeof(int));
+	}
+	for(int i = 0; i < 1000; i++) {
+		free(vect[i]);
+	}
+	high_resolution_clock::time_point AllocEnd = high_resolution_clock::now();
+	std::cout << duration_cast<microseconds>(AllocEnd - AllocBegin).count() << std::endl;
+}
+
 int main() {
-    TestAllocationBlock();
-    TestQueue();
-    return 0;
+    //TestAllocationBlock();
+    //TestQueue();
+	BenchmarAllcators();    
+	return 0;
 }
