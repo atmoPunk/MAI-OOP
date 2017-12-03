@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include "TNode.h"
 
+template <class T>
 class TBinTree {
 public:
 	TBinTree() {
@@ -14,9 +15,9 @@ public:
 		root->destroyNode();
 	}
 
-	void insert(char* blk, TNode** node, TNode* par) {
+	void insert(T blk, TNode<T>** node, TNode<T>* par) {
 		if(*node == nullptr) {
-			*node = new TNode(blk, par);
+			*node = new TNode<T>(blk, par);
 			return;
 		}
 		if(blk < (*node)->block) {
@@ -27,7 +28,7 @@ public:
 		}
 	}
 
-	TNode* findLeaf(TNode* node) {
+	TNode<T>* findLeaf(TNode<T>* node) {
 		if(node->left == nullptr) {
 			if(node->right == nullptr) {
 				return node;
@@ -37,7 +38,7 @@ public:
 		return findLeaf(node->left);
 	}
 	
-	TNode* root;
+	TNode<T>* root;
 };
 
 #endif 

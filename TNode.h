@@ -4,12 +4,14 @@
 #include <cstdlib>
 #include <algorithm>
 
-struct TNode {
+template <class T>
+class TNode {
+public:
 	TNode* left;
 	TNode* right;
 	TNode* parent;
-	void* block;
-	TNode(char* blk, TNode* par) {
+	T block;
+	TNode(T blk, TNode<T>* par) {
 		block = blk;
 		left = nullptr;
 		right = nullptr;

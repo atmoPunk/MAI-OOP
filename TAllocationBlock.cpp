@@ -3,7 +3,7 @@
 
 TAllocationBlock::TAllocationBlock(size_t size, size_t count) : _size(size), _count(count) {
 	_used_blocks = (char*) malloc(_size * _count);
-	_free_blocks = new TBinTree();
+	_free_blocks = new TBinTree<void*>();
 	for(size_t i = _count / 2; i < _count; i++) {
 		_free_blocks->insert(_used_blocks + i * _size, &(_free_blocks->root), nullptr);
 	}
@@ -17,7 +17,7 @@ TAllocationBlock::TAllocationBlock(size_t size, size_t count) : _size(size), _co
 void* TAllocationBlock::allocate() {
 	void* result = nullptr;
 	if(_free_count > 0) {
-		TNode* resNode;
+		TNode<void*>* resNode;
 		resNode = _free_blocks->findLeaf(_free_blocks->root);
 		result = resNode->block;
 		if(resNode->parent == nullptr) {

@@ -17,7 +17,7 @@ private:
 	size_t _count;
 
 	char* _used_blocks;
-	TBinTree* _free_blocks;
+	TBinTree<void*>* _free_blocks;
 
 	size_t _free_count;
 };

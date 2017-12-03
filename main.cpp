@@ -96,8 +96,7 @@ void BenchmarAllcators() {
 }
 
 int main() {
-    //TestAllocationBlock();
-    //TestQueue();
-	BenchmarAllcators();    
+    TestAllocationBlock();
+    TestQueue();   
 	return 0;
 }
