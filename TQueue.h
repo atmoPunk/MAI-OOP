@@ -7,16 +7,19 @@
 #include "TTrapezoid.h"
 #include "TQueueItem.h"
 #include "TIterator.h"
+#include "TBinTree.h"
+#include "TNode.h"
 #include <memory>
 
-template <class T> class TQueue {
+template <class T, class TT> class TQueue {
 public:
     TQueue();
     virtual ~TQueue();
 
-    template <class A> friend std::ostream& operator<<(std::ostream& os, TQueue<A>& queue);
+    template<class A, class AA> friend std::ostream& operator<<(std::ostream& os, TQueue<A, AA>& queue);
 
-    void Push(std::shared_ptr<T> figure);
+    void Push(std::shared_ptr<T> container);
+    void Insert(std::shared_ptr<TT> obj);
     bool Empty();
     void Pop();
     std::shared_ptr<T> Front();

@@ -6,29 +6,30 @@
 #include <vector>
 
 #include "TQueue.h"
+#include "TBinTree.h"
 #include "TQueueItem.h"
 #include "TRectangle.h"
 #include "TTrapezoid.h"
 #include "TRhombus.h"
 #include "IFigure.h"
 
-void TestQueue() {
-    std::cout << std::endl << "Queue Demonstration" << std::endl;
+// void TestQueue() {
+//     std::cout << std::endl << "Queue Demonstration" << std::endl;
 
-    TQueue<IFigure> queue;
+//     TQueue<IFigure> queue;
 
-    std::shared_ptr<IFigure> ptr1 = std::make_shared<TRectangle>(1.0, 2.0);
-    std::shared_ptr<IFigure> ptr2 = std::make_shared<TRhombus>(1, 1.57);
-    std::shared_ptr<IFigure> ptr3 = std::make_shared<TTrapezoid>(1, 2, 1);
+//     std::shared_ptr<IFigure> ptr1 = std::make_shared<TRectangle>(1.0, 2.0);
+//     std::shared_ptr<IFigure> ptr2 = std::make_shared<TRhombus>(1, 1.57);
+//     std::shared_ptr<IFigure> ptr3 = std::make_shared<TTrapezoid>(1, 2, 1);
     
-    queue.Push(ptr1);
-    queue.Push(ptr2);
-    queue.Push(ptr3);
+//     queue.Push(ptr1);
+//     queue.Push(ptr2);
+//     queue.Push(ptr3);
     
-    for(TIterator<TQueueItem <IFigure> , IFigure> i = queue.begin(); i != queue.end(); ++i) {
-        (*i)->Print();
-    }
-}
+//     for(TIterator<TQueueItem <IFigure> , IFigure> i = queue.begin(); i != queue.end(); ++i) {
+//         (*i)->Print();
+//     }
+// }
 
 void TestAllocationBlock() {
     std::cout << "Allocation Block Demonstration" << std::endl;
@@ -96,7 +97,31 @@ void BenchmarAllcators() {
 }
 
 int main() {
-    TestAllocationBlock();
-    TestQueue();   
+    // TestAllocationBlock();
+    // TestQueue();
+    // TBinTree<std::shared_ptr<IFigure> > tr;
+    std::shared_ptr<IFigure> ptr1 = std::make_shared<TRectangle>(1.0, 2.0);
+    std::shared_ptr<IFigure> ptr2 = std::make_shared<TRhombus>(1, 1.57);
+    std::shared_ptr<IFigure> ptr3 = std::make_shared<TTrapezoid>(1, 2, 1);
+    std::shared_ptr<IFigure> ptr4 = std::make_shared<TRectangle>(1.3, 2.0);
+    std::shared_ptr<IFigure> ptr5 = std::make_shared<TRhombus>(2, 1.83);
+    std::shared_ptr<IFigure> ptr6 = std::make_shared<TTrapezoid>(3, 1, 1);
+    std::shared_ptr<IFigure> ptr7 = std::make_shared<TRectangle>(4.0, 2.0);
+    std::shared_ptr<IFigure> ptr8 = std::make_shared<TRhombus>(3, 1.57);
+    std::shared_ptr<IFigure> ptr9 = std::make_shared<TTrapezoid>(4, 2, 4);
+    // tr.push(ptr1);
+    // tr.push(ptr2);
+    // tr.push(ptr3);  
+    TQueue < TBinTree < std::shared_ptr <IFigure> >, IFigure > tq;
+    tq.Insert(ptr1);
+    tq.Insert(ptr2);
+    tq.Insert(ptr3);
+    tq.Insert(ptr4);
+    tq.Insert(ptr5);
+    tq.Insert(ptr6);
+    tq.Insert(ptr7);
+    tq.Insert(ptr8);
+    tq.Insert(ptr9);
+    std::cout << tq << std::endl;
 	return 0;
 }

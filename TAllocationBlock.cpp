@@ -5,10 +5,10 @@ TAllocationBlock::TAllocationBlock(size_t size, size_t count) : _size(size), _co
 	_used_blocks = (char*) malloc(_size * _count);
 	_free_blocks = new TBinTree<void*>();
 	for(size_t i = _count / 2; i < _count; i++) {
-		_free_blocks->insert(_used_blocks + i * _size, &(_free_blocks->root), nullptr);
+		_free_blocks->insert((void*) (_used_blocks + i * _size), &(_free_blocks->root), nullptr);
 	}
 	for(size_t i = 0; i < _count / 2; i++) {
-		_free_blocks->insert(_used_blocks + i * _size, &(_free_blocks->root), nullptr);
+		_free_blocks->insert((void*) (_used_blocks + i * _size), &(_free_blocks->root), nullptr);
 	}
 	_free_count = _count;
 	std::cout << "TAllocationBlock: Memory init" << std::endl;
@@ -40,7 +40,7 @@ void* TAllocationBlock::allocate() {
 
 void TAllocationBlock::deallocate(void* ptr) {
 	std::cout << "TAllocationBlock: Deallocate" << std::endl;
-	_free_blocks->insert((char*) ptr, &(_free_blocks->root), nullptr);
+	_free_blocks->insert((void*) ptr, &(_free_blocks->root), nullptr);
 	_free_count++;
 }
 

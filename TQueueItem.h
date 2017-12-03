@@ -5,6 +5,8 @@
 #include "TAllocationBlock.h"
 #include <iostream>
 #include <memory>
+#include "TBinTree.h"
+#include "TNode.h"
 
 template <class T> class TQueueItem {
 public:

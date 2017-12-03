@@ -1,9 +1,9 @@
 #include "TQueue.h"
 
-template <class T> TQueue<T>::TQueue() : first(nullptr), last(nullptr), size(0) {};
+template <class T, class TT> TQueue<T, TT>::TQueue() : first(nullptr), last(nullptr), size(0) {};
 
-template <class T> void TQueue<T>::Push(std::shared_ptr<T> figure) {
-    std::shared_ptr < TQueueItem <T> > item(new TQueueItem<T>(figure));
+template <class T, class TT> void TQueue<T, TT>::Push(std::shared_ptr<T> container) {
+    std::shared_ptr < TQueueItem <T> > item(new TQueueItem<T>(container));
     if(last != nullptr) {
         last->SetNext(item);
         last = item;
@@ -15,11 +15,30 @@ template <class T> void TQueue<T>::Push(std::shared_ptr<T> figure) {
     size++;
 }
 
-template <class T> bool TQueue<T>::Empty() {
+template <class T, class TT> void TQueue<T, TT>::Insert(std::shared_ptr<TT> obj) {
+    bool inserted = false;
+    if(first != nullptr) {
+        for(auto i : *this) {
+            if(i->size < 5) {
+                i->Push(obj);
+                inserted = true;
+                break;
+            }
+        }
+    }
+
+    if(!inserted) {
+        std::shared_ptr<T> cont = std::make_shared<T>();
+        cont->Push(obj);
+        Push(cont);
+    }
+}
+
+template <class T, class TT> bool TQueue<T, TT>::Empty() {
     return size == 0;
 }
 
-template <class T> void TQueue<T>::Pop() {
+template <class T, class TT> void TQueue<T, TT>::Pop() {
     if(first != nullptr) {
         std::shared_ptr < TQueueItem <T> > oldFirst = first;
         first = first->GetNext();
@@ -31,10 +50,10 @@ template <class T> void TQueue<T>::Pop() {
     }
 }
 
-template <class T> TQueue<T>::~TQueue() {
+template <class T, class TT> TQueue<T, TT>::~TQueue() {
 }
 
-template <class T> std::ostream &operator<<(std::ostream &os, TQueue<T> &queue) {
+template <class T, class TT> std::ostream &operator<<(std::ostream &os, TQueue<T, TT> &queue) {
     if(queue.Empty()) {
         os << "Empty";
         return os;
@@ -49,7 +68,7 @@ template <class T> std::ostream &operator<<(std::ostream &os, TQueue<T> &queue) 
     return os;
 }
 
-template <class T> std::shared_ptr<T> TQueue<T>::Front() {
+template <class T, class TT> std::shared_ptr<T> TQueue<T, TT>::Front() {
     std::shared_ptr<T> result;
     if (first != nullptr) {
         result = first->GetFigure();
@@ -59,13 +78,13 @@ template <class T> std::shared_ptr<T> TQueue<T>::Front() {
     return result;
 }
 
-template <class T> TIterator< TQueueItem<T>, T > TQueue<T>::begin() {
+template <class T, class TT> TIterator< TQueueItem<T>, T > TQueue<T, TT>::begin() {
     return TIterator< TQueueItem<T>, T >(first);
 }
 
-template <class T> TIterator< TQueueItem<T>, T > TQueue<T>::end() {
+template <class T, class TT> TIterator< TQueueItem<T>, T > TQueue<T, TT>::end() {
     return TIterator< TQueueItem<T>, T >(nullptr);
 }
 
-template class TQueue<IFigure>;
-template std::ostream &operator<<(std::ostream &os, TQueue<IFigure> &queue);
+template class TQueue< TBinTree<std::shared_ptr <IFigure> >, IFigure >;
+template std::ostream &operator<<(std::ostream &os, TQueue< TBinTree<std::shared_ptr <IFigure> >, IFigure > &queue);

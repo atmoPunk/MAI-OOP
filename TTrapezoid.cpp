@@ -67,8 +67,5 @@ double TTrapezoid::Square() {
 }
 
 void TTrapezoid::Print() {
-    std::cout << "Trapezoid" << std::endl;
-    std::cout << "base 1 = " << base1 << std::endl;
-    std::cout << "base 2 = " << base2 << std::endl;
-    std::cout << "height = " << height << std::endl;
+    std::cout << "Trapezoid, square: " << Square() << std::endl;
 }

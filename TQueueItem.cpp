@@ -12,7 +12,7 @@ template <class T> TQueueItem<T>::~TQueueItem() {
 
 template <class A> std::ostream &operator<<(std::ostream &os, const TQueueItem<A> &obj) {
     std::shared_ptr<A> fig = obj.figure;
-    fig->Print();
+    os << *fig; 
     return os;
 }
 
@@ -40,5 +40,5 @@ template <class T> void TQueueItem<T>::operator delete(void* ptr) {
     return queueitem_allocator.deallocate(ptr);
 }
 
-template class TQueueItem<IFigure>;
-template std::ostream &operator<<(std::ostream &os, const TQueueItem<IFigure> &obj);
+template class TQueueItem< TBinTree<std::shared_ptr <IFigure> > >;
+template std::ostream &operator<<(std::ostream &os, const TQueueItem< TBinTree<std::shared_ptr <IFigure> > > &obj);
