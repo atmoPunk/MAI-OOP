@@ -59,11 +59,44 @@ public:
 		return findLeaf(node->left);
 	}
 	
+	T PopFind(TNode<T>* node) {
+		if(node != nullptr) {
+			if(node->left == nullptr) {
+				if(node->right == nullptr) {
+					if(node->parent != nullptr) {
+						if(node->parent->left == node) {
+							node->parent->left = nullptr;
+						} else {
+							node->parent->right = nullptr;
+						}
+					} else {
+						root = nullptr;
+					}
+					return node->block;
+				}
+				return PopFind(node->right);
+			}
+			return PopFind(node->left);
+		}
+		else {
+			return nullptr;
+		}
+	}
+
+	T Pop() {
+		size--;
+		return PopFind(root);
+	}
+
 	template <class A> friend std::ostream& operator<<(std::ostream& os, TBinTree<A>& obj) {
 		os << "========================\n";
 		obj.Print(obj.root, 0);
 		os << "=========================\n";
 		return os;
+	}
+
+	bool empty(){
+		return size == 0;
 	}
 
 	TNode<T>* root;
@@ -122,6 +155,10 @@ public:
 		return findLeaf(node->left);
 	}
 	
+	bool empty(){
+		return size == 0;
+	}
+
 	template <class A> friend std::ostream& operator<<(std::ostream& os, TBinTree<A>& obj) {
 	obj.Print(obj.root, 0);
 	return os;

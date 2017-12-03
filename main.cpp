@@ -12,6 +12,9 @@
 #include "TTrapezoid.h"
 #include "TRhombus.h"
 #include "IFigure.h"
+#include "IRemoveCriteria.h"
+#include "IRemoveCriteriaBySquare.h"
+#include "IRemoveCriteriaAll.h"
 
 // void TestQueue() {
 //     std::cout << std::endl << "Queue Demonstration" << std::endl;
@@ -122,6 +125,12 @@ int main() {
     tq.Insert(ptr7);
     tq.Insert(ptr8);
     tq.Insert(ptr9);
+    std::cout << tq << std::endl;
+    IRemoveCriteriaBySquare<double> criteria(2.0);
+    tq.RemoveItemSq(&criteria);
+    std::cout << tq << std::endl;
+    IRemoveCriteriaAll<TRhombus> criteriaAll(2);
+    tq.RemoveItemAll(&criteriaAll);
     std::cout << tq << std::endl;
 	return 0;
 }

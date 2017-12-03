@@ -1,6 +1,6 @@
 CC=g++
-CFLAGS=-std=c++11 -c
-LD=g++
+CFLAGS=-std=c++11 -c -g
+LD=g++ -g
 RM=rm -rf
 OUT=main.out
 

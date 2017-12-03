@@ -15,6 +15,41 @@ template <class T, class TT> void TQueue<T, TT>::Push(std::shared_ptr<T> contain
     size++;
 }
 
+template <class T, class TT> void TQueue<T, TT>::RemoveItemSq(IRemoveCriteria<double>* criteria) {
+    for(auto i : *this) {
+        T copy;
+        while(!i->empty()) {
+            std::shared_ptr<TT> value = i->Pop();
+            double sq = value->Square();
+            if(criteria->isIt(&sq)) {
+                std::cout << "Delete item" << std::endl;
+            } else {
+                copy.Push(value);
+            }
+        }
+        while(!copy.empty()) {
+            i->Push(copy.Pop());
+        }
+    }
+}
+
+// template <class T, class TT> template <class A> void TQueue<T, TT>::RemoveItemAll(IRemoveCriteriaAll<A>* criteria) {
+//         for(auto i : *this) {
+//         T copy;
+//         while(!i->empty()) {
+//             std::shared_ptr<TT> value = i->Pop();
+//             if(criteria->isIt(&*value)) {
+//                 std::cout << "Delete item" << std::endl;
+//             } else {
+//                 copy.Push(value);
+//             }
+//         }
+//         while(!copy.empty()) {
+//             i->Push(copy.Pop());
+//         }
+//     }
+// }
+
 template <class T, class TT> void TQueue<T, TT>::Insert(std::shared_ptr<TT> obj) {
     bool inserted = false;
     if(first != nullptr) {
@@ -88,3 +123,4 @@ template <class T, class TT> TIterator< TQueueItem<T>, T > TQueue<T, TT>::end() 
 
 template class TQueue< TBinTree<std::shared_ptr <IFigure> >, IFigure >;
 template std::ostream &operator<<(std::ostream &os, TQueue< TBinTree<std::shared_ptr <IFigure> >, IFigure > &queue);
+// template void TQueue< TBinTree<std::shared_ptr <IFigure> >, IFigure >::RemoveItemAll(IRemoveCriteria<TRhombus>*);
