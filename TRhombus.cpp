@@ -62,7 +62,5 @@ double TRhombus::Square() {
 }
 
 void TRhombus::Print() {
-    std::cout << "Rhombus" << std::endl;
-    std::cout << "side = " << side << std::endl;
-    std::cout << "angle = " << angle << std::endl;
+    std::cout << "Rhombus, square = " << Square() << std::endl;
 }

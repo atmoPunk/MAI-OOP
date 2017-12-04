@@ -1,13 +1,13 @@
 CC=g++
-CFLAGS=-std=c++11 -c
-LD=g++
+CFLAGS=-std=c++11 -c -g
+LD=g++ -g
 RM=rm -rf
 OUT=main.out
 
 all:build
 
 build: rhombus.o trapezoid.o rectangle.o queueitem.o queue.o main.o allocationblock.o
-	$(LD) -o $(OUT) main.o TRectangle.o TRhombus.o TTrapezoid.o TQueueItem.o TQueue.o TAllocationBlock.o
+	$(LD) -o $(OUT) main.o TRectangle.o TRhombus.o TTrapezoid.o TQueueItem.o TQueue.o TAllocationBlock.o -lpthread
 
 main.o: main.cpp TRectangle.h TTrapezoid.h TRhombus.h TQueueItem.h TQueue.h
 	$(CC) $(CFLAGS) main.cpp

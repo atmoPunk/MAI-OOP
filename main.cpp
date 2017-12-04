@@ -28,6 +28,12 @@ void TestQueue() {
     for(TIterator<TQueueItem <IFigure> , IFigure> i = queue.begin(); i != queue.end(); ++i) {
         (*i)->Print();
     }
+
+    queue.SortParallel();
+
+    for(TIterator<TQueueItem <IFigure> , IFigure> i = queue.begin(); i != queue.end(); ++i) {
+        (*i)->Print();
+    }
 }
 
 void TestAllocationBlock() {
@@ -96,7 +102,7 @@ void BenchmarAllcators() {
 }
 
 int main() {
-    TestAllocationBlock();
+//    TestAllocationBlock();
     TestQueue();   
-	return 0;
+    return 0;
 }
