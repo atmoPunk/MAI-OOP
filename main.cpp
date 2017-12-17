@@ -4,6 +4,11 @@
 #include <ratio>
 #include <chrono>
 #include <vector>
+#include <functional>
+#include <thread>
+#include <future>
+#include <random>
+
 
 #include "TQueue.h"
 #include "TQueueItem.h"
@@ -12,10 +17,33 @@
 #include "TRhombus.h"
 #include "IFigure.h"
 
+typedef std::function<void (void)> Command;
+
 void TestQueue() {
     std::cout << std::endl << "Queue Demonstration" << std::endl;
 
     TQueue<IFigure> queue;
+    TQueue<Command> queue_cmd;
+
+    Command cmd_insert = [&]() {
+        std::cout << "Command: create figures" << std::endl;
+        std::default_random_engine generator;
+        std::uniform_real_distribution<float> distr(1.0, 100.0);
+        for(int i = 0; i < 10; ++i) {
+            float side1 = distr(generator);
+            float side2 = distr(generator);
+            std::shared_ptr<IFigure> ptr = std::make_shared<TRectangle>(side1, side2);
+            queue.Push(ptr);
+        }
+
+    };
+
+    Command cmd_print = [&]() {
+        std::cout << "Print" << std::endl;
+        std::cout << queue;
+    };
+
+
 
     std::shared_ptr<IFigure> ptr1 = std::make_shared<TRectangle>(1.0, 2.0);
     std::shared_ptr<IFigure> ptr2 = std::make_shared<TRhombus>(1, 1.57);

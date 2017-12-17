@@ -3,6 +3,7 @@
 template <class T> TQueue<T>::TQueue() : first(nullptr), last(nullptr), size(0) {};
 
 template <class T> void TQueue<T>::Push(std::shared_ptr<T> figure) {
+    std::lock_guard<std::recursive_mutex> lock(queue_mutex);
     std::shared_ptr < TQueueItem <T> > item(new TQueueItem<T>(figure));
     if(last != nullptr) {
         last->SetNext(item);
@@ -16,10 +17,12 @@ template <class T> void TQueue<T>::Push(std::shared_ptr<T> figure) {
 }
 
 template <class T> bool TQueue<T>::Empty() {
+    std::lock_guard<std::recursive_mutex> lock(queue_mutex);
     return size == 0;
 }
 
 template <class T> void TQueue<T>::Pop() {
+    std::lock_guard<std::recursive_mutex> lock(queue_mutex);
     if(first != nullptr) {
         std::shared_ptr < TQueueItem <T> > oldFirst = first;
         first = first->GetNext();
@@ -50,6 +53,7 @@ template <class T> std::ostream &operator<<(std::ostream &os, TQueue<T> &queue) 
 }
 
 template <class T> std::shared_ptr<T> TQueue<T>::Front() {
+    std::lock_guard<std::recursive_mutex> lock(queue_mutex);
     std::shared_ptr<T> result;
     if (first != nullptr) {
         result = first->GetFigure();

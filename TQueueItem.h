@@ -5,10 +5,12 @@
 #include "TAllocationBlock.h"
 #include <iostream>
 #include <memory>
+#include <mutex>
+#include <thread>
 
 template <class T> class TQueueItem {
 public:
-    TQueueItem(const std::shared_ptr<T>& figure);
+    TQueueItem(const std::shared_ptr<T>& figure, std::recursive_mutex* parent);
     virtual ~TQueueItem();
     
     template <class A> friend std::ostream& operator<<(std::ostream& os, const TQueueItem<A>& obj);
@@ -23,7 +25,7 @@ public:
 private:
     std::shared_ptr<T> figure;
     std::shared_ptr< TQueueItem<T> > next;
-
+    std::recursive_mutex* queue_mutex;
     static TAllocationBlock queueitem_allocator;    
 };
 

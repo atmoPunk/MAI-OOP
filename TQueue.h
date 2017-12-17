@@ -8,6 +8,9 @@
 #include "TQueueItem.h"
 #include "TIterator.h"
 #include <memory>
+#include <future>
+#include <mutex>
+#include <thread>
 
 template <class T> class TQueue {
 public:
@@ -25,6 +28,7 @@ public:
     TIterator < TQueueItem<T>, T > end();
 
 private:
+    std::recursive_mutex queue_mutex;
     std::shared_ptr < TQueueItem <T> > first;
     std::shared_ptr < TQueueItem <T> > last;
     size_t size;
