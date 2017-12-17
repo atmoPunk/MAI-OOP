@@ -65,4 +65,5 @@ void TRectangle::Print() {
     std::cout << "Rectangle" << std::endl;
     std::cout << "a = " << side_a << std::endl;
     std::cout << "b = " << side_b << std::endl;
+    std::cout << "Square = " << Square() << std::endl;
 }

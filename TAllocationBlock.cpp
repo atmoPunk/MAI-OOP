@@ -11,7 +11,6 @@ TAllocationBlock::TAllocationBlock(size_t size, size_t count) : _size(size), _co
 		_free_blocks->insert(_used_blocks + i * _size, &(_free_blocks->root), nullptr);
 	}
 	_free_count = _count;
-	std::cout << "TAllocationBlock: Memory init" << std::endl;
 }
 
 void* TAllocationBlock::allocate() {
@@ -31,7 +30,6 @@ void* TAllocationBlock::allocate() {
 		}
 		delete resNode;
 		_free_count--;
-		std::cout << "TAllocationBlock: Allocate" << std::endl;
 	} else {
 		std::cout << "TAllocationBlock: No Memory" << std::endl;
 	}
@@ -39,7 +37,6 @@ void* TAllocationBlock::allocate() {
 }
 
 void TAllocationBlock::deallocate(void* ptr) {
-	std::cout << "TAllocationBlock: Deallocate" << std::endl;
 	_free_blocks->insert((char*) ptr, &(_free_blocks->root), nullptr);
 	_free_count++;
 }
@@ -51,8 +48,6 @@ bool TAllocationBlock::notFull() {
 TAllocationBlock::~TAllocationBlock() {
 	if(_free_count < _count) {
 		std::cout << "TAllocationBlock: Memory Leak" << std::endl;
-	} else {
-		std::cout << "TAllocationBlock: Memory free" << std::endl;
 	}
 	delete _used_blocks;
 	delete _free_blocks;

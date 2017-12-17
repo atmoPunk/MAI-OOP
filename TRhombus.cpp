@@ -65,4 +65,5 @@ void TRhombus::Print() {
     std::cout << "Rhombus" << std::endl;
     std::cout << "side = " << side << std::endl;
     std::cout << "angle = " << angle << std::endl;
+    std::cout << "Square = " << Square() << std::endl;
 }

@@ -21,11 +21,13 @@ public:
 
     void* operator new(size_t size);
     void operator delete(void* ptr);
+
+    std::recursive_mutex *queue_mutex_ptr;
     
 private:
     std::shared_ptr<T> figure;
     std::shared_ptr< TQueueItem<T> > next;
-    std::recursive_mutex* queue_mutex;
+    
     static TAllocationBlock queueitem_allocator;    
 };
 
