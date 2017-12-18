@@ -41,4 +41,5 @@ private:
 	std::shared_ptr<node> node_ptr;
 };
 
+
 #endif //TITERATOR_H

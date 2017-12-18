@@ -23,7 +23,7 @@ void TestQueue() {
     std::cout << std::endl << "Queue Demonstration" << std::endl;
 
     TQueue <IFigure> queue;
-    TQueue <Command> queue_cmd;
+    TBinTree <std::shared_ptr<Command> > tree_cmd;
 
     Command cmd_insert = [&]() {
         std::cout << "Command: create figures" << std::endl;
@@ -83,15 +83,15 @@ void TestQueue() {
 
     Command cmd_delete = [&]() { cmd_delete_num(minSqr); };
 
-    queue_cmd.Push(std::shared_ptr <Command> (&cmd_insert, [](Command*) {} ));
-    queue_cmd.Push(std::shared_ptr <Command> (&cmd_print, [](Command*) {} ));
-    queue_cmd.Push(std::shared_ptr <Command> (&cmd_delete, [](Command*) {} ));
-    queue_cmd.Push(std::shared_ptr <Command> (&cmd_print, [](Command*) {} ));
+    tree_cmd.insert(std::shared_ptr <Command> (&cmd_print, [](Command*) {} ), &tree_cmd.root, nullptr);
+    tree_cmd.insert(std::shared_ptr <Command> (&cmd_delete, [](Command*) {} ), &tree_cmd.root, nullptr);
+    tree_cmd.insert(std::shared_ptr <Command> (&cmd_print, [](Command*) {} ), &tree_cmd.root, nullptr);
+    tree_cmd.insert(std::shared_ptr <Command> (&cmd_insert, [](Command*) {} ), &tree_cmd.root, nullptr);
 
-    while(!queue_cmd.Empty()) {
-        std::shared_ptr <Command> cmd = queue_cmd.Front();
-        queue_cmd.Pop();
-        std::future <void> ft = std::async(*cmd);
+    while(!tree_cmd.empty()) {
+        TNode<std::shared_ptr<Command> >* resNode = tree_cmd.findLeaf(tree_cmd.root);
+        tree_cmd.delLeaf();
+        std::future <void> ft = std::async(*(resNode->block));
         ft.get();
     }
 
