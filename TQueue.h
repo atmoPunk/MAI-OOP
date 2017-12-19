@@ -22,7 +22,7 @@ public:
 
     void Push(std::shared_ptr<T> container);
     void RemoveItemSq(IRemoveCriteria<double>* criteria);
-    template <class A> void RemoveItemAll(IRemoveCriteriaAll<A>* criteria) {
+    template <class A> void RemoveItemAll(IRemoveCriteriaAll<TT, A>* criteria) {
         for(auto i : *this) {
             T copy;
             while(!i->empty()) {

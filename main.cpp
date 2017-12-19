@@ -129,7 +129,7 @@ int main() {
     IRemoveCriteriaBySquare<double> criteria(2.0);
     tq.RemoveItemSq(&criteria);
     std::cout << tq << std::endl;
-    IRemoveCriteriaAll<TRhombus> criteriaAll(2);
+    IRemoveCriteriaAll<IFigure, TRhombus> criteriaAll;
     tq.RemoveItemAll(&criteriaAll);
     std::cout << tq << std::endl;
 	return 0;

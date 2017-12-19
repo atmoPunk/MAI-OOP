@@ -3,19 +3,17 @@
 
 #include "IRemoveCriteria.h"
 
-template <class T>
-class IRemoveCriteriaAll {
+template <class T, class C>
+class IRemoveCriteriaAll : public IRemoveCriteria<T> {
 public:
-	IRemoveCriteriaAll(int a) { abc = a; }
-	bool isIt(IFigure* ptr) {
-		T* v = dynamic_cast<T*>(ptr);
+	bool isIt(T* ptr) override {
+		C* v = dynamic_cast<C*>(ptr);
 		if(v == nullptr) {
 			return false; 
 		}
 		return true;
 	}
 private:
-	int abc;
 };
 
 #endif
